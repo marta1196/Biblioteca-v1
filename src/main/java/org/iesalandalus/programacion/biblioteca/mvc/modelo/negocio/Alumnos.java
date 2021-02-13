@@ -1,6 +1,7 @@
 package org.iesalandalus.programacion.biblioteca.mvc.modelo.negocio;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.naming.OperationNotSupportedException;
@@ -18,7 +19,10 @@ public class Alumnos {
 
 	public List<Alumno> get() {
 
-		return copiaProfundaAlumnos();
+		List<Alumno> copiaAlumnos = copiaProfundaAlumnos();
+		copiaAlumnos.sort(Comparator.comparing(Alumno::getNombre));
+		
+		return copiaAlumnos;
 	}
 
 	private List<Alumno> copiaProfundaAlumnos() {
