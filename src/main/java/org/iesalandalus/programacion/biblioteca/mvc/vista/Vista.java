@@ -374,7 +374,7 @@ public class Vista {
 			
 			List<Prestamo> prestamoFecha = controlador.getPrestamos(Consola.leerFecha("Introduce la fecha del prestamo: "));
 
-			if (prestamoFecha.isEmpty()) {
+			if (!prestamoFecha.isEmpty()) {
 
 				for (Prestamo prestamo : prestamoFecha) {
 
