@@ -1,0 +1,396 @@
+package org.iesalandalus.programacion.biblioteca.mvc.vista;
+
+import javax.naming.OperationNotSupportedException;
+
+import org.apache.commons.math3.exception.NullArgumentException;
+import org.iesalandalus.programacion.biblioteca.mvc.controlador.Controlador;
+import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Alumno;
+import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Libro;
+import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Prestamo;
+import org.iesalandalus.programacion.utilidades.Entrada;
+
+public class Vista {
+
+	private Controlador controlador;
+
+	public Vista() {
+
+		Opcion.setVista(this);
+	}
+
+	public void setControlador(Controlador controlador) {
+
+		this.controlador = controlador;
+	}
+
+	public void comenzar() {
+
+		int ordinalOpcion;
+		Opcion opcion;
+
+		Consola.mostrarCabecera("Gestión de la biblioteca del IES Al-Ándalus");
+
+		do {
+
+			Consola.mostrarMenu();
+			ordinalOpcion = Consola.elegirOpcion();
+			opcion = Opcion.getOpcionSegunOridnal(ordinalOpcion);
+			opcion.ejecutar();
+			System.out.println("\n");
+
+		} while (ordinalOpcion != Opcion.SALIR.ordinal());
+	}
+
+	public void terminar() {
+
+		controlador.terminar();
+	}
+
+	public void insertarAlumno() {
+
+		Consola.mostrarCabecera("Insertar alumno");
+
+		try {
+
+			controlador.insertar(Consola.leerAlumno());
+			System.out.println("El alumno está insertado correctamente.");
+
+		} catch (NullPointerException | IllegalArgumentException | OperationNotSupportedException e) {
+
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void buscarAlumno() {
+
+		String mensaje = "";
+		Alumno alumno;
+
+		Consola.mostrarCabecera("Buscar alumno");
+
+		try {
+
+			alumno = controlador.buscar(Consola.leerAlumnoFicticio());
+
+			if (alumno == null) {
+
+				mensaje = "No existe dicho alumno";
+
+			} else {
+
+				mensaje = alumno.toString();
+			}
+
+			System.out.println(mensaje);
+
+		} catch (IllegalArgumentException | NullPointerException e) {
+
+			System.out.println(e.getMessage());
+		}
+
+	}
+
+	public void borrarAlumno() {
+
+		Consola.mostrarCabecera("Borrar alumno");
+
+		try {
+
+			controlador.borrar(Consola.leerAlumnoFicticio());
+			System.out.println("El alumno está borrado correctamente.");
+
+		} catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {
+
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void listarAlumnos() {
+
+		Consola.mostrarCabecera("Lista de alumnos");
+
+		Alumno[] alumnos = controlador.getAlumnos();
+
+		if (alumnos[0] != null) {
+
+			for (Alumno alumno : alumnos) {
+
+				if (alumno != null) {
+
+					System.out.println(alumno);
+				}
+			}
+
+		} else {
+
+			System.out.println("No hay alumnos que mostrar.");
+		}
+	}
+
+	public void insertarLibro() {
+
+		Consola.mostrarCabecera("Insertar libro");
+
+		try {
+
+			controlador.insertar(Consola.leerLibro());
+			System.out.println("el Libro está insertado correctamente.");
+
+		} catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {
+
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void buscarLibro() {
+
+		String mensaje = "";
+		Libro libro;
+
+		Consola.mostrarCabecera("Buscar libro");
+
+		try {
+
+			libro = controlador.buscar(Consola.leerLibroFicticio());
+
+			if (libro == null) {
+
+				mensaje = "No existe dicho libro";
+
+			} else {
+
+				mensaje = libro.toString();
+			}
+
+			System.out.println(mensaje);
+
+		} catch (IllegalArgumentException | NullPointerException e) {
+
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void borrarLibro() {
+
+		Consola.mostrarCabecera("Borrar libro");
+
+		try {
+
+			controlador.borrar(Consola.leerLibroFicticio());
+			System.out.println("El libro está borrado correctamente.");
+
+		} catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException e) {
+
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void listarLibros() {
+
+		Consola.mostrarCabecera("Lista de libros");
+
+		Libro[] libros = controlador.getLibros();
+
+		if (libros[0] != null) {
+
+			for (Libro libro : libros) {
+
+				if (libro != null) {
+
+					System.out.println(libro);
+				}
+			}
+
+		} else {
+
+			System.out.println("No hay libros que mostrar");
+		}
+	}
+
+	public void prestarLibro() {
+
+		Consola.mostrarCabecera("Prestar libro");
+
+		try {
+
+			controlador.prestar(Consola.leerPrestamo());
+			;
+			System.out.println("el Libro ha sido prestado correctamente.");
+
+		} catch (NullPointerException | IllegalArgumentException | OperationNotSupportedException e) {
+
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void devolverLibro() {
+
+		Consola.mostrarCabecera("Devolver libro");
+
+		try {
+
+			controlador.devolver(Consola.leerPrestamoFicticio(),
+					Consola.leerFecha("Introduce la fecha del prestamo: "));
+			System.out.println("el Libro ha sido devuelto correctamente.");
+
+		} catch (NullPointerException | IllegalArgumentException | OperationNotSupportedException e) {
+
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void buscarPrestamo() {
+
+		String mensaje = "";
+		Prestamo prestamo = null;
+
+		Consola.mostrarCabecera("Buscar prestamo");
+
+		try {
+
+			prestamo = controlador.buscar(Consola.leerPrestamoFicticio());
+
+			if (prestamo == null) {
+
+				mensaje = "No existe dicho prestamo";
+
+			} else {
+
+				mensaje = prestamo.toString();
+			}
+
+			System.out.println(mensaje);
+
+		} catch (IllegalArgumentException | NullPointerException e) {
+
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void borrarPrestamo() {
+
+		Consola.mostrarCabecera("Borrar prestamo");
+
+		try {
+
+			controlador.borrar(Consola.leerPrestamoFicticio());
+			System.out.println("El prestamo está borrado correctamente.");
+
+		} catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {
+
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void listarPrestamos() {
+
+		Consola.mostrarCabecera("Lista de prestamos");
+
+		Prestamo[] prestamos = controlador.getPrestamos();
+
+		if (prestamos[0] != null) {
+
+			for (Prestamo prestamo : prestamos) {
+
+				if (prestamo != null) {
+
+					System.out.println(prestamo);
+				}
+			}
+
+		} else {
+
+			System.out.println("No hay prestamos que mostrar");
+		}
+	}
+
+	public void listarPrestamosAlumno() {
+
+		Consola.mostrarCabecera("Lista de prestamos por alumno");
+
+		try {
+
+			Prestamo[] prestamosAlumno = controlador.getPrestamos(Consola.leerAlumnoFicticio());
+
+			if (prestamosAlumno[0] != null) {
+
+				for (Prestamo prestamo : prestamosAlumno) {
+
+					if (prestamo != null) {
+
+						System.out.println(prestamo);
+					}
+				}
+
+			} else {
+
+				System.out.println("No hay prestamos que mostrar para dicho alumno");
+			}
+
+		} catch (NullPointerException | IllegalArgumentException e) {
+
+			System.out.println(e.getMessage());
+		}
+
+	}
+
+	public void listarPrestamosLibro() {
+
+		Consola.mostrarCabecera("Lista de prestamos por libro");
+
+		try {
+			
+			Prestamo[] prestamoLibro = controlador.getPrestamos(Consola.leerLibroFicticio());
+
+			if (prestamoLibro[0] != null) {
+
+				for (Prestamo prestamo : prestamoLibro) {
+
+					if (prestamo != null) {
+
+						System.out.println(prestamo);
+					}
+				}
+
+			} else {
+
+				System.out.println("No hay prestamos que mostrar para dicho libro");
+			}
+			
+		}catch (NullPointerException | IllegalArgumentException e) {
+			
+			System.out.println(e.getMessage());
+		}
+		
+	}
+
+	public void listarPrestamosFecha() {
+
+		Consola.mostrarCabecera("Lista de prestamos por libro");
+
+		try {
+			
+			Prestamo[] prestamoFecha = controlador.getPrestamos(Consola.leerFecha("Introduce la fecha del prestamo: "));
+
+			if (prestamoFecha[0] != null) {
+
+				for (Prestamo prestamo : prestamoFecha) {
+
+					if (prestamo != null) {
+
+						System.out.println(prestamo);
+					}
+				}
+
+			} else {
+
+				System.out.println("No hay prestamos que mostrar para dicha fecha");
+			}
+			
+		}catch (NullPointerException | IllegalArgumentException e) {
+			
+			System.out.println(e.getMessage());
+		}
+		
+	}
+}
