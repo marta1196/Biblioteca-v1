@@ -14,8 +14,6 @@ import org.iesalandalus.programacion.biblioteca.mvc.modelo.negocio.Prestamos;
 
 public class Modelo {
 
-	private static final int CAPACIDAD = 30;
-
 	private Alumnos alumnos;
 	private Prestamos prestamos;
 	private Libros libros;
@@ -23,7 +21,7 @@ public class Modelo {
 	public Modelo() {
 
 		alumnos = new Alumnos();
-		prestamos = new Prestamos(CAPACIDAD);
+		prestamos = new Prestamos();
 		libros = new Libros();
 	}
 
@@ -113,22 +111,22 @@ public class Modelo {
 		return libros.get();
 	}
 
-	public Prestamo[] getPrestamos() {
+	public List<Prestamo> getPrestamos() {
 
 		return prestamos.get();
 	}
 
-	public Prestamo[] getPrestamos(Alumno alumno) {
+	public List<Prestamo> getPrestamos(Alumno alumno) {
 
 		return prestamos.get(alumno);
 	}
 
-	public Prestamo[] getPrestamos(Libro libro) {
+	public List<Prestamo> getPrestamos(Libro libro) {
 
 		return prestamos.get(libro);
 	}
 
-	public Prestamo[] getPrestamos(LocalDate fecha) {
+	public List<Prestamo> getPrestamos(LocalDate fecha) {
 
 		return prestamos.get(fecha);
 	}

@@ -288,9 +288,9 @@ public class Vista {
 
 		Consola.mostrarCabecera("Lista de prestamos");
 
-		Prestamo[] prestamos = controlador.getPrestamos();
+		List<Prestamo> prestamos = controlador.getPrestamos();
 
-		if (prestamos[0] != null) {
+		if (!prestamos.isEmpty()) {
 
 			for (Prestamo prestamo : prestamos) {
 
@@ -312,9 +312,9 @@ public class Vista {
 
 		try {
 
-			Prestamo[] prestamosAlumno = controlador.getPrestamos(Consola.leerAlumnoFicticio());
+			List<Prestamo> prestamosAlumno = controlador.getPrestamos(Consola.leerAlumnoFicticio());
 
-			if (prestamosAlumno[0] != null) {
+			if (!prestamosAlumno.isEmpty()) {
 
 				for (Prestamo prestamo : prestamosAlumno) {
 
@@ -342,9 +342,9 @@ public class Vista {
 
 		try {
 			
-			Prestamo[] prestamoLibro = controlador.getPrestamos(Consola.leerLibroFicticio());
+			List<Prestamo> prestamoLibro = controlador.getPrestamos(Consola.leerLibroFicticio());
 
-			if (prestamoLibro[0] != null) {
+			if (!prestamoLibro.isEmpty()) {
 
 				for (Prestamo prestamo : prestamoLibro) {
 
@@ -372,9 +372,9 @@ public class Vista {
 
 		try {
 			
-			Prestamo[] prestamoFecha = controlador.getPrestamos(Consola.leerFecha("Introduce la fecha del prestamo: "));
+			List<Prestamo> prestamoFecha = controlador.getPrestamos(Consola.leerFecha("Introduce la fecha del prestamo: "));
 
-			if (prestamoFecha[0] != null) {
+			if (prestamoFecha.isEmpty()) {
 
 				for (Prestamo prestamo : prestamoFecha) {
 
@@ -392,7 +392,6 @@ public class Vista {
 		}catch (NullPointerException | IllegalArgumentException e) {
 			
 			System.out.println(e.getMessage());
-		}
-		
+		}		
 	}
 }
