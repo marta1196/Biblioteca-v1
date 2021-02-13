@@ -1,6 +1,7 @@
 package org.iesalandalus.programacion.biblioteca.mvc.modelo;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.naming.OperationNotSupportedException;
 
@@ -21,7 +22,7 @@ public class Modelo {
 
 	public Modelo() {
 
-		alumnos = new Alumnos(CAPACIDAD);
+		alumnos = new Alumnos();
 		prestamos = new Prestamos(CAPACIDAD);
 		libros = new Libros(CAPACIDAD);
 	}
@@ -102,7 +103,7 @@ public class Modelo {
 		prestamos.borrar(prestamo);
 	}
 
-	public Alumno[] getAlumnos() {
+	public List<Alumno> getAlumnos() {
 
 		return alumnos.get();
 	}

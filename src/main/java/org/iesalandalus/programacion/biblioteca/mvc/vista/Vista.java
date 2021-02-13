@@ -1,5 +1,7 @@
 package org.iesalandalus.programacion.biblioteca.mvc.vista;
 
+import java.util.List;
+
 import javax.naming.OperationNotSupportedException;
 
 import org.apache.commons.math3.exception.NullArgumentException;
@@ -109,9 +111,9 @@ public class Vista {
 
 		Consola.mostrarCabecera("Lista de alumnos");
 
-		Alumno[] alumnos = controlador.getAlumnos();
+		List<Alumno> alumnos = controlador.getAlumnos();
 
-		if (alumnos[0] != null) {
+		if (!alumnos.isEmpty()) {
 
 			for (Alumno alumno : alumnos) {
 
