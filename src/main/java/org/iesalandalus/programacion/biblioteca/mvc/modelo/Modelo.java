@@ -24,7 +24,7 @@ public class Modelo {
 
 		alumnos = new Alumnos();
 		prestamos = new Prestamos(CAPACIDAD);
-		libros = new Libros(CAPACIDAD);
+		libros = new Libros();
 	}
 
 	public void insertar(Alumno alumno) throws OperationNotSupportedException {
@@ -108,7 +108,7 @@ public class Modelo {
 		return alumnos.get();
 	}
 
-	public Libro[] getLibros() {
+	public List<Libro> getLibros() {
 
 		return libros.get();
 	}

@@ -99,7 +99,7 @@ public class Controlador {
 		return modelo.getAlumnos();
 	}
 
-	public Libro[] getLibros() {
+	public List<Libro> getLibros() {
 
 		return modelo.getLibros();
 	}

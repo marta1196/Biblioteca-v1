@@ -191,9 +191,9 @@ public class Vista {
 
 		Consola.mostrarCabecera("Lista de libros");
 
-		Libro[] libros = controlador.getLibros();
+		List<Libro> libros = controlador.getLibros();
 
-		if (libros[0] != null) {
+		if (!libros.isEmpty()) {
 
 			for (Libro libro : libros) {
 
