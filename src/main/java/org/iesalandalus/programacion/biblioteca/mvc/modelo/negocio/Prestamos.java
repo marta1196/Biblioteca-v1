@@ -2,6 +2,7 @@ package org.iesalandalus.programacion.biblioteca.mvc.modelo.negocio;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.naming.OperationNotSupportedException;
@@ -21,7 +22,17 @@ public class Prestamos {
 
 	public List<Prestamo> get() {
 
-		return copiaProfundaPrestamos();
+		List<Prestamo> copiaPrestamos = copiaProfundaPrestamos();
+		
+		Comparator<Alumno> compararAlumno = Comparator.comparing(Alumno::getNombre);
+		Comparator<Libro> compararLibro = Comparator.comparing(Libro::getTitulo).thenComparing(Libro::getAutor);
+		
+		Comparator<Prestamo> compararPrestamo = Comparator.comparing(Prestamo::getFechaPrestamo)
+				.thenComparing(Prestamo::getAlumno, compararAlumno).thenComparing(Prestamo::getLibro, compararLibro);
+		
+		copiaPrestamos.sort(compararPrestamo);
+		
+		return copiaPrestamos;
 	}
 
 	private List<Prestamo> copiaProfundaPrestamos() {
@@ -57,6 +68,13 @@ public class Prestamos {
 				prestamoAlumno.add(new Prestamo(prestamo));
 			}
 		}
+		
+		Comparator<Libro> compararLibro = Comparator.comparing(Libro::getTitulo).thenComparing(Libro::getAutor);
+		
+		Comparator<Prestamo> compararPrestamo = Comparator.comparing(Prestamo::getFechaPrestamo)
+				.thenComparing(Prestamo::getLibro, compararLibro);
+		
+		prestamoAlumno.sort(compararPrestamo);
 
 		return prestamoAlumno;
 	}
@@ -77,6 +95,13 @@ public class Prestamos {
 				prestamoLibro.add(new Prestamo(prestamo));
 			}
 		}
+		
+		Comparator<Alumno> compararAlumno = Comparator.comparing(Alumno::getNombre);
+		
+		Comparator<Prestamo> compararPrestamo = Comparator.comparing(Prestamo::getFechaPrestamo)
+				.thenComparing(Prestamo::getAlumno, compararAlumno);
+		
+		prestamoLibro.sort(compararPrestamo);
 
 		return prestamoLibro;
 	}
@@ -97,6 +122,14 @@ public class Prestamos {
 				prestamoFecha.add(new Prestamo(prestamo));
 			}
 		}
+		
+		Comparator<Alumno> compararAlumno = Comparator.comparing(Alumno::getNombre);
+		Comparator<Libro> compararLibro = Comparator.comparing(Libro::getTitulo).thenComparing(Libro::getAutor);
+		
+		Comparator<Prestamo> compararPrestamo = Comparator.comparing(Prestamo::getFechaPrestamo)
+				.thenComparing(Prestamo::getAlumno, compararAlumno).thenComparing(Prestamo::getLibro, compararLibro);
+		
+		prestamoFecha.sort(compararPrestamo);
 
 		return prestamoFecha;
 	}
