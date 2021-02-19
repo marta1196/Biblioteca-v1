@@ -90,11 +90,23 @@ public class Modelo {
 
 	public void borrar(Alumno alumno) throws OperationNotSupportedException {
 
+		List<Prestamo> prestamoAlumno = prestamos.get(alumno);
+
+		for (Prestamo prestamo : prestamoAlumno) {
+
+			prestamos.borrar(prestamo);
+		}
 		alumnos.borrar(alumno);
 	}
 
 	public void borrar(Libro libro) throws OperationNotSupportedException {
 
+		List<Prestamo> prestamoLibro = prestamos.get(libro);
+
+		for (Prestamo prestamo : prestamoLibro) {
+
+			prestamos.borrar(prestamo);
+		}
 		libros.borrar(libro);
 	}
 
