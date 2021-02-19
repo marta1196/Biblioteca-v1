@@ -27,7 +27,7 @@ public class Libro {
 
 		setTitulo(libro.getTitulo());
 		setAutor(libro.getAutor());
-		setNumPaginas(libro.numPaginas);
+		setNumPaginas(libro.getNumPaginas());
 	}
 
 	public static Libro getLibroFicticio(String titulo, String autor) {
