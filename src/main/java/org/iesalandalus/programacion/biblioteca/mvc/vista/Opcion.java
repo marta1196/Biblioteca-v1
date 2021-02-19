@@ -130,6 +130,14 @@ public enum Opcion {
 		}
 	},
 
+	MOSTRAR_ESTADISTICA_MENSUAL_POR_CURSO("Mostrar estadistica mensual por curso") {
+
+		public void ejecutar() {
+
+			vista.mostrarEstadisticaMensualPorCurso();
+		}
+	},
+
 	SALIR("Salir") {
 
 		public void ejecutar() {
@@ -148,7 +156,7 @@ public enum Opcion {
 
 	public abstract void ejecutar();
 
-	public static void setVista(Vista vista) {
+	protected static void setVista(Vista vista) {
 
 		Opcion.vista = vista;
 	}

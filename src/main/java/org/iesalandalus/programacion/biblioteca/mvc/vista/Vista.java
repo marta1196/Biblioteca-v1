@@ -1,12 +1,14 @@
 package org.iesalandalus.programacion.biblioteca.mvc.vista;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.OperationNotSupportedException;
 
 import org.apache.commons.math3.exception.NullArgumentException;
 import org.iesalandalus.programacion.biblioteca.mvc.controlador.Controlador;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Alumno;
+import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Curso;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Libro;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Prestamo;
 import org.iesalandalus.programacion.utilidades.Entrada;
@@ -341,7 +343,7 @@ public class Vista {
 		Consola.mostrarCabecera("Lista de prestamos por libro");
 
 		try {
-			
+
 			List<Prestamo> prestamoLibro = controlador.getPrestamos(Consola.leerLibroFicticio());
 
 			if (!prestamoLibro.isEmpty()) {
@@ -358,12 +360,12 @@ public class Vista {
 
 				System.out.println("No hay prestamos que mostrar para dicho libro");
 			}
-			
-		}catch (NullPointerException | IllegalArgumentException e) {
-			
+
+		} catch (NullPointerException | IllegalArgumentException e) {
+
 			System.out.println(e.getMessage());
 		}
-		
+
 	}
 
 	public void listarPrestamosFecha() {
@@ -371,8 +373,9 @@ public class Vista {
 		Consola.mostrarCabecera("Lista de prestamos por libro");
 
 		try {
-			
-			List<Prestamo> prestamoFecha = controlador.getPrestamos(Consola.leerFecha("Introduce la fecha del prestamo: "));
+
+			List<Prestamo> prestamoFecha = controlador
+					.getPrestamos(Consola.leerFecha("Introduce la fecha del prestamo: "));
 
 			if (!prestamoFecha.isEmpty()) {
 
@@ -388,10 +391,29 @@ public class Vista {
 
 				System.out.println("No hay prestamos que mostrar para dicha fecha");
 			}
-			
-		}catch (NullPointerException | IllegalArgumentException e) {
-			
+
+		} catch (NullPointerException | IllegalArgumentException e) {
+
 			System.out.println(e.getMessage());
-		}		
+		}
+	}
+
+	public void mostrarEstadisticaMensualPorCurso() {
+
+		String listadosPuntos = "(";
+
+		Consola.mostrarCabecera("Estadística mensual por curso");
+
+		Map<Curso, Integer> estadisticaMensualPorCurso = controlador
+				.getEstadisticaMensualPorCurso(Consola.leerFecha("Introduzca la fecha: "));
+
+		for (Curso curso : Curso.values()) {
+
+			listadosPuntos += curso.toString() + "=" + estadisticaMensualPorCurso.get(curso) + ", ";
+		}
+
+		listadosPuntos = listadosPuntos.substring(0, listadosPuntos.length() - 2) + ")";
+
+		System.out.println(listadosPuntos);
 	}
 }
