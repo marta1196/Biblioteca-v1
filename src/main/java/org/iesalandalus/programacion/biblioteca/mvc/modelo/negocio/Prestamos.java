@@ -3,7 +3,7 @@ package org.iesalandalus.programacion.biblioteca.mvc.modelo.negocio;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -155,10 +155,9 @@ public class Prestamos {
 		return estadisticaMensualPorCurso;
 	}
 
-	/* Inicializamos los cursos con 0 puntos */
 	private Map<Curso, Integer> inicializarEstadisticas() {
 
-		Map<Curso, Integer> estadisticaMensualPorCurso = new HashMap<>();
+		Map<Curso, Integer> estadisticaMensualPorCurso = new EnumMap<>(Curso.class);
 
 		for (Curso curso : Curso.values()) {
 
