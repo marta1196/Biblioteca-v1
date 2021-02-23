@@ -404,16 +404,24 @@ public class Vista {
 
 		Consola.mostrarCabecera("Estadística mensual por curso");
 
-		Map<Curso, Integer> estadisticaMensualPorCurso = controlador
-				.getEstadisticaMensualPorCurso(Consola.leerFecha("Introduzca la fecha: "));
+		try {
 
-		for (Curso curso : Curso.values()) {
+			Map<Curso, Integer> estadisticaMensualPorCurso = controlador
+					.getEstadisticaMensualPorCurso(Consola.leerFecha("Introduzca la fecha: "));
 
-			listadosPuntos += curso.toString() + "=" + estadisticaMensualPorCurso.get(curso) + ", ";
+			for (Curso curso : Curso.values()) {
+
+				listadosPuntos += curso.toString() + "=" + estadisticaMensualPorCurso.get(curso) + ", ";
+			}
+
+			listadosPuntos = listadosPuntos.substring(0, listadosPuntos.length() - 2) + ")";
+
+			System.out.println(listadosPuntos);
+
+		} catch (NullPointerException | IllegalArgumentException e) {
+
+			System.out.println(e.getMessage());
 		}
-
-		listadosPuntos = listadosPuntos.substring(0, listadosPuntos.length() - 2) + ")";
-
-		System.out.println(listadosPuntos);
 	}
+
 }
